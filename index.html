@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Video Player</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .video-container {
+            margin-top: 20px;
+            position: relative;
+            width: 640px;
+            height: 360px;
+        }
+
+        #videoId {
+            padding: 8px;
+            margin-right: 8px;
+        }
+
+        #loadButton {
+            padding: 8px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>YouTube Video Player</h1>
+    <div>
+        <label for="videoId">Enter YouTube Video ID:</label>
+        <input type="text" id="videoId" placeholder="Enter Video ID">
+        <button id="loadButton" onclick="loadVideo()">Load Video</button>
+    </div>
+    <div class="video-container" id="player"></div>
+
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+        const apiKey = 'YOUR_API_KEY';
+
+        const tag = document.createElement('script');
+        tag.src = 'https://www.youtube.com/iframe_api';
+        const firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        let player;
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '360',
+                width: '640',
+                videoId: '',
+                events: {
+                    'onReady': onPlayerReady
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+
+        }
+
+        function loadVideo() {
+            const videoId = document.getElementById('videoId').value;
+            player.loadVideoById(videoId);
+        }
+    </script>
+</body>
+</html>
